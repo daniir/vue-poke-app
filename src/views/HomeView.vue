@@ -7,6 +7,10 @@ import PokemonCard from '../components/pokemons/PokemonCard.vue';
 const apiResult = ref<PokemonResponse>();
 const pokemons = ref<SmallPokemon[]>([]);
 
+const scrollToTop = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+};
+
 const getPokemons =async (url: string) => {
     const { data } = await pokeApi.get<PokemonResponse>(url);
     apiResult.value = data;
@@ -15,7 +19,11 @@ const getPokemons =async (url: string) => {
         ...pokemon,
         id: pokemon.url.split('/').at(-2)!,
     }));
+    setTimeout(() => {
+        scrollToTop()
+    }, 150);
 };
+
 
 getPokemons('/?limit=21');
 
