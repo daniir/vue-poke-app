@@ -11,10 +11,9 @@ const scrollToTop = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
 };
 
-const getPokemons =async (url: string) => {
+const getPokemons = async (url: string) => {
     const { data } = await pokeApi.get<PokemonResponse>(url);
     apiResult.value = data;
-    console.log('resp: ', apiResult.value);
     pokemons.value = data.results.map((pokemon) => ({
         ...pokemon,
         id: pokemon.url.split('/').at(-2)!,
@@ -24,13 +23,12 @@ const getPokemons =async (url: string) => {
     }, 150);
 };
 
-
 getPokemons('/?limit=21');
 
 </script>
 
 <template>
-    <h1 class="text-center font-bold text-5xl my-5 text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 from-10% via-orange-500 via-30% to-red-500 to-90%">Pokemons List</h1>
+    <h1 class="text-center font-bold text-5xl my-5 text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 from-10% via-orange-500 via-30% to-red-500 to-90%">Lista de Pokémons</h1>
         <div class="grid justify-items-center grid-cols-2 md:grid-cols-3 gap-4">
             <PokemonCard
                 v-for="pokemon in pokemons" 
