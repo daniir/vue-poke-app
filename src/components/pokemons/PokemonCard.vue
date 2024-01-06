@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { usePokemons } from '../../composables/';
 
-const { favorites,  checkLocalStorage, addFavorites, removeFavorite } = usePokemons();
+const { favorites, addFavorites, removeFavorite } = usePokemons();
 
 defineProps<{
     id: string;
     name: string;
 }>();
-
-checkLocalStorage();
 
 </script>
 
