@@ -1,29 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { pokeApi } from '../utils/axios';
-import { PokemonResponse, SmallPokemon } from '../interfaces/';
+import { usePokemons } from "../composables/";
 import PokemonCard from '../components/pokemons/PokemonCard.vue';
 
-const apiResult = ref<PokemonResponse>();
-const pokemons = ref<SmallPokemon[]>([]);
-
-const scrollToTop = () => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-};
-
-const getPokemons = async (url: string) => {
-    const { data } = await pokeApi.get<PokemonResponse>(url);
-    apiResult.value = data;
-    pokemons.value = data.results.map((pokemon) => ({
-        ...pokemon,
-        id: pokemon.url.split('/').at(-2)!,
-    }));
-    setTimeout(() => {
-        scrollToTop()
-    }, 150);
-};
+const { pokemons, apiResult ,getPokemons, checkLocalStorage } = usePokemons();
 
 getPokemons('/?limit=21');
+checkLocalStorage();
 
 </script>
 
