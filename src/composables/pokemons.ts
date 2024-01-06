@@ -1,31 +1,34 @@
 import { ref } from "vue";
+import { pokeApi } from "../utils/axios";
+import { storeToRefs } from "pinia";
+import { usePokemonStore } from "../store/pokemons";
+import { PokemonResponse, SmallPokemon } from "../interfaces";
 
-export function usePokemons() {
-  const favorites = ref<string[]>([]);
+export const usePokemons = () => {
+  
+  const pokemons = ref<SmallPokemon[]>([]);
+  const apiResult = ref<PokemonResponse>();
+  const usePokemons = usePokemonStore();
 
-  const checkLocalStorage = () => {
-    const checkStorage = localStorage.getItem("pokeFavorites");
-    if (checkStorage) {
-      const data = JSON.parse(checkStorage);
-      data.map((e: string) => favorites.value.push(e));
-    } else {
-      favorites.value = [];
-    }
+  //Axios
+  const getPokemons = async (url: string) => {
+    const { data } = await pokeApi.get<PokemonResponse>(url);
+    apiResult.value = data;
+    pokemons.value = data.results.map((pokemon) => ({
+      ...pokemon,
+      id: pokemon.url.split("/").at(-2)!,
+    }));
   };
 
-  const addFavorites = (id: string) => {
-    favorites.value.push(id);
-    localStorage.setItem("pokeFavorites", JSON.stringify(favorites.value));
-  };
-
-  const removeFavorite = (id: string) => {
-    favorites.value = favorites.value.filter((e) => e !== id);
-    console.log(favorites.value);
-    localStorage.setItem("pokeFavorites", JSON.stringify(favorites.value));
-  };
+  //Store
+  const { favorites } = storeToRefs(usePokemons);
+  const { checkLocalStorage, addFavorites, removeFavorite } = usePokemons;
 
   return {
+    pokemons,
+    apiResult,
     favorites,
+    getPokemons,
     checkLocalStorage,
     addFavorites,
     removeFavorite,
