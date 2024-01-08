@@ -21,7 +21,7 @@ getPokemon();
 </script>
 
 <template>
-    <div class="flex justify-center items-center" v-if="pokemon">
+    <div class="flex justify-center items-center mt-12" v-if="pokemon">
         <PokemonDetail
             :name="pokemon.name"
             :sprites="pokemon.sprites"
