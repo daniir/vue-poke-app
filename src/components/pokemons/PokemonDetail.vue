@@ -12,12 +12,12 @@ const router = useRouter();
 </script>
 
 <template>
-    <div class="mx-auto px-5 border-2 rounded-lg">
-            <div class="flex justify-center items-center bg-gray-800 p-5 rounded-md m-5 shadow-md">
-                <img :src="sprites.front_default" :alt="`${name}_front_default`" />
-                <img :src="sprites.front_shiny" :alt="`${name}_front_shiny`" />
-                <img :src="sprites.back_default" :alt="`${name}_back_default`" />
-                <img :src="sprites.back_shiny" :alt="`${name}_back_shiny`" />
+    <div class="px-5 border-2 rounded-lg">
+            <div class="flex justify-around items-center bg-gray-800 p-5 rounded-md my-5 shadow-md">
+                <img :src="sprites.front_default" :alt="`${name}_front_default`" width="75"/>
+                <img :src="sprites.front_shiny" :alt="`${name}_front_shiny`" width="75"/>
+                <img :src="sprites.back_default" :alt="`${name}_back_default`" width="75"/>
+                <img :src="sprites.back_shiny" :alt="`${name}_back_shiny`" width="75"/>
             </div>
             <div class="my-6 flex justify-between items-center px-4 p-3 rounded-sm shadow">
                 <p class="font-bold text-gray-800">Estadisticas</p>
