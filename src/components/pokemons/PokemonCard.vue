@@ -11,16 +11,16 @@ defineProps<{
 </script>
 
 <template>
-    <div class="flex flex-col justify-center items-center border-2 shadow-lg rounded-xl bg-slate-900 w-full">
-        <div class="m-5">
+    <div class="flex flex-col justify-center items-center border-2 shadow-lg rounded-3xl bg-slate-900">
+        <div>
             <img 
-                class="h-36 object-cover"
+                class="h-36 object-cover my-6"
                 :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`"
             />
         </div>
-        <div class="bg-white flex flex-col justify-center items-center w-full">
+        <div class="bg-white flex flex-col justify-center items-center w-full rounded-b-2xl">
             <h5 class="capitalize text-2xl font-semibold my-1.5">{{ name }}</h5>
-            <div class="p-3 mb-2 w-1/2">
+            <div class="p-3 mb-2 ">
                 <div class="flex justify-between items-center">
                     <RouterLink 
                         class="text-green-600 hover:text-green-800 hover:underline"
@@ -28,9 +28,9 @@ defineProps<{
                     >
                         Detalle
                     </RouterLink>
-                    <button v-if="!favorites.find(e => e === id)"
+                    <button v-if="!favorites.find(e => e.id === id)"
                         class="flex items-center p-2"
-                        @click="addFavorites(id)"
+                        @click="addFavorites(id, name)"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" 
                             class="icon icon-tabler icon-tabler-heart"
