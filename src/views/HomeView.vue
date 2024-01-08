@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { usePokemons } from "../composables/";
 import PokemonCard from '../components/pokemons/PokemonCard.vue';
+import LoadingSpinner from "../components/shared/LoadingSpinner.vue";
 
 const { pokemons, apiResult ,getPokemons, checkLocalStorage } = usePokemons();
 
@@ -11,7 +12,8 @@ checkLocalStorage();
 
 <template>
     <h1 class="text-center font-bold text-5xl my-5 text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 from-10% via-orange-500 via-30% to-red-500 to-90%">Lista de Pokémons</h1>
-        <div class="grid justify-items-center grid-cols-2 md:grid-cols-3 gap-4">
+        <div v-if="pokemons.length > 0">
+            <div class="grid justify-items-stretch grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4">
             <PokemonCard
                 v-for="pokemon in pokemons" 
                 :key="pokemon.url"
@@ -36,5 +38,9 @@ checkLocalStorage();
             >
                 Siguiente
             </button>
+        </div>
+        </div>
+        <div class="flex justify-center items-center h-[calc(100vh-8rem)]" v-else>
+            <LoadingSpinner />
         </div>
 </template>
